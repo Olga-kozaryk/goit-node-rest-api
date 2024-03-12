@@ -1,3 +1,4 @@
+import HttpError from "../helpers/HttpError.js";
 import contactsService from "../services/contactsServices.js";
 
 export const getAllContacts = async(req, res) => {
@@ -5,7 +6,7 @@ export const getAllContacts = async(req, res) => {
         const data = await contactsService.listContacts();
         res.status(200).json(data)
     } catch (error) {
-        throw HttpError(404,error.message);
+        throw HttpError(404,message);
     }
 };
 
@@ -41,7 +42,7 @@ export const createContact = async(req, res) => {
 export const updateContact = async(req, res) => {
     try {
         const { id } = req.params;
-        const data = await contactsService.updateContact(id, req.body);
+        const data = await contactsService.updateContactById(id, req.body);
         res.status(201).json(data);
     } catch (error) {
         throw HttpError(404,error.message);
