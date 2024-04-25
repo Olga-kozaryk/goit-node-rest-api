@@ -10,29 +10,33 @@ import {
 } from "../controllers/contactsControllers.js";
 
 import { 
-    checkCreateContact, 
-    checkUpdateContactData, 
-    isValidId
+    isValidId,
+    validateBody
 } from "../middlewares/contactMiddlewares.js";
+
+import { 
+    createContactSchema, 
+    updateContactSchema, 
+    updateStatusSchema
+} from "../helpers/contactValidators.js";
 
  const contactsRouter = express.Router();
 
 contactsRouter
 .route('/')
 .get(getAllContacts)
-.post(checkCreateContact,createContact);
+.post(validateBody(createContactSchema),createContact);
 
 contactsRouter.patch('/:id/favorite',
 isValidId,
-checkUpdateContactData, 
+validateBody(updateStatusSchema), 
 updateStatusContact);
-
-contactsRouter.get('./:id', isValidId, getOneContact)
 
 contactsRouter.use('./:id',isValidId );
 contactsRouter
 .route('./:id')
-.put(checkUpdateContactData, updateContact)
+.get(isValidId, getOneContact)
+.put(validateBody(updateContactSchema), updateContact)
 .delete(deleteContact);
 
 export default contactsRouter;

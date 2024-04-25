@@ -1,4 +1,5 @@
 import { model, Schema } from "mongoose";
+import { handleError } from "../helpers/handleError.js";
 
 const contactShema = new Schema (
     {
@@ -18,6 +19,8 @@ const contactShema = new Schema (
           type: Boolean,
           default: false,
         },
-      })
+      },
+      { versionKey: false });
+      contactShema.post("save", handleError)
 
 export const Contact = model('Contact', contactShema);
