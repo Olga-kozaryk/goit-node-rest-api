@@ -1,5 +1,4 @@
 import { catchAsync } from "../helpers/catchAsync.js";
-import { Contact } from "../models/contact.js";
 import { 
     createContactService,
     deleteContactService,
@@ -16,7 +15,7 @@ res.status(200).json({contacts});
 
 export const getOneContact = catchAsync(async (reg, res) => {
 const {id} = reg.params;
-const contact = await Contact.findById(id)
+const contact = await getContactsByIdService(id);
 res.status(200).json({contact});
 });
 
@@ -40,7 +39,7 @@ res.status(200).json({
 });
 
 export const updateStatusContact = catchAsync(async (reg, res) => {
-    const favoriteContact = await upStatusContactService(reg.contact.id, reg.body);
+    const favoriteContact = await upStatusContactService(reg.contact, reg.body);
 
     res.status(200).json(favoriteContact);
 });
