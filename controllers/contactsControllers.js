@@ -36,9 +36,9 @@ res.status(204).json(delContact);
 
 export const createContact = catchAsync(async (reg, res,) => {
 const newContact = await createContactService(reg.body);
-res.status(201).json({
-    contact: newContact,
-});
+res.status(201).json(
+    newContact,
+);
 });
 
 export const updateContact = catchAsync(async (reg, res) => {
