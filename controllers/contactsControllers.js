@@ -43,14 +43,12 @@ res.status(201).json(
 
 export const updateContact = catchAsync(async (reg, res) => {
 const {id} = reg.params;
-const upContact = await updateContactService(id, reg.body);
-if (!upContact) {
-    throw HttpError(404, "Contact not found");
+const contact = await updateContactService(id, reg.body);
+if (!contact) {
+    return HttpError(404, "Contact not found");
   };
 
-res.status(200).json({
-    contact: upContact,
-});
+res.status(200).json(contact);
 });
 
 export const updateStatusContact = catchAsync(async (reg, res, next) => {

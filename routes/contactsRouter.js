@@ -32,9 +32,9 @@ isValidId,
 validateBody(updateStatusSchema), 
 updateStatusContact);
 
-contactsRouter.use('./:id',isValidId );
+contactsRouter.use('/:id',isValidId );
 contactsRouter
-.route('./:id')
+.route('/:id')
 .get(isValidId, getOneContact)
 .put(validateBody(updateContactSchema), updateContact)
 .delete(deleteContact);
