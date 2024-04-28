@@ -1,8 +1,14 @@
 import { Contact } from "../models/contact.js";
 
-export const getContactsService = () => Contact.find();
+export const getContactsService = async () => { 
+   const contacts = await Contact.find()
+   return contacts;
+};
 
-export const deleteContactService = (id) => Contact.findByIdAndDelete(id);
+export const deleteContactService = async (id) => {
+const removeContact = await Contact.findByIdAndDelete(id);
+return removeContact;
+};
 
 export const createContactService = async (contactData) => {
     const newContact = await Contact.create(contactData);
@@ -27,6 +33,12 @@ export const upStatusContactService = async (id, contactData) => {
 return newStatus;
 };
 
-export const checkContactExistsService = (filter) => Contact.exists(filter);
+export const checkContactExistsService = async (filter) => {
+    const contact = await Contact.exists(filter);
+return contact
+};
 
-export const getContactsByIdService = (id) => Contact.findById(id);
+export const getContactsByIdService = async (id) => {
+    const contact = await Contact.findById(id)
+return contact
+};
