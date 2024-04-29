@@ -24,7 +24,7 @@ res.status(200).json(contact);
 export const deleteContact = catchAsync(async (reg, res, next) =>{
 const {id} = reg.params;
 const delContact = await deleteContactService(id);
-res.status(204).json(delContact);
+res.status(200).json(delContact);
 });
 
 export const createContact = catchAsync(async (reg, res,) => {
