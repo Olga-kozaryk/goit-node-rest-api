@@ -28,7 +28,7 @@ mongoose
     res.status(404).json({message:"Resource not found!"});
   });
 
-  app.use((error, reg, res, next) => {
+  app.use((error, reg, res) => {
     console.error(error);
     res.status(error.status ?? 500).json({message:error.message});
   });

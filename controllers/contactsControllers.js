@@ -1,3 +1,4 @@
+import HttpError from "../helpers/HttpError.js";
 import { catchAsync } from "../helpers/catchAsync.js";
 import { 
     createContactService,
@@ -18,16 +19,19 @@ res.status(200).json(contacts);
 export const getOneContact = catchAsync(async (reg, res, next) => {
 const {id} = reg.params;
 const contact = await getContactsByIdService(id);
+if (!contact) {
+throw HttpError(404,"Not FOUND")
+}
 res.status(200).json(contact);
 });
 
-export const deleteContact = catchAsync(async (reg, res, next) =>{
+export const deleteContact = catchAsync(async (reg, res) =>{
 const {id} = reg.params;
 const delContact = await deleteContactService(id);
 res.status(200).json(delContact);
 });
 
-export const createContact = catchAsync(async (reg, res,) => {
+export const createContact = catchAsync(async (reg, res) => {
 const newContact = await createContactService(reg.body);
 res.status(201).json(
     newContact,
