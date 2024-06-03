@@ -30,7 +30,7 @@ mongoose
 
   app.use((error, reg, res) => {
     console.error(error);
-    res.status(error.status ?? 500).json({message:error.message});
+    res.status(500).json({message:"Server Error"});
   });
 
   app.listen(3000, () => {

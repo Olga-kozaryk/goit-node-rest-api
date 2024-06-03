@@ -35,7 +35,7 @@ updateStatusContact);
 contactsRouter.use('/:id',isValidId );
 contactsRouter
 .route('/:id')
-.get(isValidId, getOneContact)
+.get(getOneContact)
 .put(validateBody(updateContactSchema), updateContact)
 .delete(deleteContact);
 
