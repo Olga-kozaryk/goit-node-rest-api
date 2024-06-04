@@ -1,10 +1,10 @@
 import {isValidObjectId} from "mongoose";
-import { HttpError } from "../helpers/HttpError.js"
+import HttpError from "../helpers/HttpError.js"
 
-export const isValidId = (reg, res, next, error) => {
+export const isValidId = (reg, res, next) => {
    const{id} = reg.params;
    if(!isValidObjectId(id)) {
-   return res.status(404).send({message:'Not Found'});
+    next(HttpError(400, `${id} is not valid id!`));
    }
    next();
  };
@@ -13,7 +13,7 @@ export const isValidId = (reg, res, next, error) => {
    const func = (req, _, next) => {
      const { error } = schema.validate(req.body);
      if (error) {
-     return next(HttpError(400, error.message));
+     next(HttpError(400, error.message));
      }
      next();
    };
