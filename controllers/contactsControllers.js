@@ -41,6 +41,9 @@ res.status(201).json(
 });
 
 export const updateContact = catchAsync(async (reg, res) => {
+if (Object.keys(reg.body).length < 1) {
+    return res.status(400).send({message:"Body must have at least one field"})
+      }
 const {id} = reg.params;
 const contact = await updateContactService(id, reg.body);
 if (!contact) {
