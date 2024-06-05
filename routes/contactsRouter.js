@@ -10,15 +10,12 @@ import {
 } from "../controllers/contactsControllers.js";
 
 import { 
-    isValidId,
-    validateBody
-} from "../middlewares/contactMiddlewares.js";
-
-import { 
     createContactSchema, 
     updateContactSchema, 
     updateStatusSchema
 } from "../helpers/contactValidators.js";
+import { validateBody } from "../helpers/validateBody.js";
+import { isValidId } from "../helpers/isValidId.js";
 
  const contactsRouter = express.Router();
 
