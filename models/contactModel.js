@@ -1,11 +1,11 @@
-import { model, Schema } from "mongoose";
+import { model, Schema} from "mongoose";
 import { handleError } from "../helpers/handleError.js";
 
 const contactSchema = new Schema (
     {
         name: {
           type: String, 
-          required: true,
+          required: [true, "Set name for contact"],
         },
         email: {
           type: String,
@@ -19,8 +19,14 @@ const contactSchema = new Schema (
           type: Boolean,
           default: false,
         },
+        owner: {
+          type: Schema.Types.ObjectId,
+          ref: "user",
+        },
       },
-      { versionKey: false });
+      { versionKey: false }
+    );
+
       contactSchema.post("save", handleError)
 
 export const Contact = model('Contact', contactSchema);

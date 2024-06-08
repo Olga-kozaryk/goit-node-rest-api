@@ -15,7 +15,7 @@ const contacts = await getContactsService();
 res.status(200).json(contacts);
 });
 
-export const getOneContact = catchAsync(async (reg, res, next) => {
+export const getOneContact = catchAsync(async (reg, res) => {
 const {id} = reg.params;
 const contact = await getContactsByIdService(id);
 if (!contact) {
