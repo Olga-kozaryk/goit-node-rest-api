@@ -1,4 +1,6 @@
 import { catchAsync } from "../helpers/catchAsync.js";
+import { parsePaginationParams } from "../helpers/parsePaginationParams.js";
+import { parseSortParams } from "../helpers/parseSortParams.js";
 import { 
     createContactService,
     deleteContactService,
@@ -9,8 +11,16 @@ import {
 } from "../services/contactService.js";
 
 export const getAllContacts = catchAsync(async (reg,res) => {
-
-const contacts = await getContactsService();
+const { page, perPage } = parsePaginationParams(req.query);
+const { sortBy, sortOrder } = parseSortParams(req.query);
+const filter = parseFilterParams(req.query);
+const contacts = await getContactsService({
+    page,
+    perPage,
+    sortBy,
+    sortOrder,
+    filter,
+  });
 
 res.status(200).json(contacts);
 });
@@ -30,7 +40,7 @@ const delContact = await deleteContactService(id);
 if (!delContact) {
     return res.status(404).send({message:'Not Found'});
 }
-res.status(200).json(delContact);
+res.status(204).json(delContact);
 });
 
 export const createContact = catchAsync(async (reg, res) => {
